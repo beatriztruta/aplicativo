@@ -1,9 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 
-# Instância do SQLAlchemy
+# Instância global de SQLAlchemy
 db = SQLAlchemy()
 
-# Função para inicializar o banco de dados (opcional)
 def init_db(app):
     """
     Inicializa a extensão SQLAlchemy com o aplicativo Flask.
