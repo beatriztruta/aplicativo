@@ -7,7 +7,7 @@ def create_app():
     app = Flask(__name__)
 
     # Configuração do Banco de Dados
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:senha@localhost/projeto"
+    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://projeto_owner:2gr7TqmfGNne@ep-yellow-frost-a54nsrc0.us-east-2.aws.neon.tech/projeto?sslmode=require"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     # Inicializar Extensões
