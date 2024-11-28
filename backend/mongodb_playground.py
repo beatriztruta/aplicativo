@@ -106,6 +106,7 @@ def realizar_analise():
 
 # Chame as funções para testar
 if __name__ == "__main__":
+    
     # Inserir usuários e testes
     inserir_usuario()
     inserir_teste()
