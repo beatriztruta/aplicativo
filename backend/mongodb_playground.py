@@ -2,7 +2,7 @@ from pymongo import MongoClient
 from datetime import datetime
 
 # URL do MongoDB (utilizando a URL do MongoDB Atlas)
-uri = "mongodb+srv://anatruta:IxiOU3e1r5bR74Si@aplicativo.u0qpc.mongodb.net/?retryWrites=true&w=majority&appName=aplicativo"
+uri = "mongodb+srv://anatruta:senha@aplicativo.xiklh.mongodb.net/teste?retryWrites=true&w=majority"
 
 # Conectar ao MongoDB
 client = MongoClient(uri)
