@@ -1,5 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import PropTypes from "prop-types"; // Importar PropTypes
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -11,103 +10,26 @@ import CreateTest from "./pages/CreateTest";
 import ListTests from "./pages/ListTests";
 import SubmitTestResponse from "./pages/SubmitTestResponse";
 import AnalyzeTest from "./pages/AnalyzeTest";
-
-// Componente para proteger rotas
-const PrivateRoute = ({ children }) => {
-    const token = localStorage.getItem("token");
-    return token ? children : <Navigate to="/" />;
-};
-
-// Validação das props do PrivateRoute
-PrivateRoute.propTypes = {
-    children: PropTypes.node.isRequired,
-};
-
-// Componente para proteger rotas com base no perfil
-const PrivateRouteWithRole = ({ children, allowedRoles }) => {
-    const token = localStorage.getItem("token");
-    const perfil = localStorage.getItem("perfil");
-
-    if (!token) return <Navigate to="/" />;
-    if (!allowedRoles.includes(perfil)) return <Navigate to="/dashboard" />;
-
-    return children;
-};
-
-// Validação das props do PrivateRouteWithRole
-PrivateRouteWithRole.propTypes = {
-    children: PropTypes.node.isRequired,
-    allowedRoles: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
+import TestDashboard from "./pages/TestDashboard";
 
 function App() {
     return (
         <Router>
             <Routes>
-                {/* Rota pública */}
+                {/* Rotas públicas para todas as páginas */}
                 <Route path="/" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/register-test" element={<RegisterTest />} />
+                <Route path="/create-test" element={<CreateTest />} />
+                <Route path="/list-tests" element={<ListTests />} />
+                <Route path="/submit-response" element={<SubmitTestResponse />} />
+                <Route path="/analyze-test" element={<AnalyzeTest />} />
+                <Route path="/test/result" element={<ResultTest />} />
+                <Route path="/test-dashboard" element={<TestDashboard />} />
 
-                {/* Rotas protegidas */}
-                <Route
-                    path="/dashboard"
-                    element={
-                        <PrivateRoute>
-                            <Dashboard />
-                        </PrivateRoute>
-                    }
-                />
-                <Route
-                    path="/register-test"
-                    element={
-                        <PrivateRouteWithRole allowedRoles={["analista"]}>
-                            <RegisterTest />
-                        </PrivateRouteWithRole>
-                    }
-                />
-                <Route
-                    path="/create-test"
-                    element={
-                        <PrivateRouteWithRole allowedRoles={["analista"]}>
-                            <CreateTest />
-                        </PrivateRouteWithRole>
-                    }
-                />
-                <Route
-                    path="/list-tests"
-                    element={
-                        <PrivateRouteWithRole allowedRoles={["produtor", "analista"]}>
-                            <ListTests />
-                        </PrivateRouteWithRole>
-                    }
-                />
-                <Route
-                    path="/submit-response"
-                    element={
-                        <PrivateRouteWithRole allowedRoles={["julgador"]}>
-                            <SubmitTestResponse />
-                        </PrivateRouteWithRole>
-                    }
-                />
-                <Route
-                    path="/analyze-test"
-                    element={
-                        <PrivateRouteWithRole allowedRoles={["analista"]}>
-                            <AnalyzeTest />
-                        </PrivateRouteWithRole>
-                    }
-                />
-                <Route
-                    path="/test/result"
-                    element={
-                        <PrivateRouteWithRole allowedRoles={["analista", "produtor"]}>
-                            <ResultTest />
-                        </PrivateRouteWithRole>
-                    }
-                />
-
-                {/* Rota curinga */}
+                {/* Rota curinga para página 404 */}
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </Router>
